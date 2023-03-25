@@ -24,4 +24,13 @@ public class Medic extends Persoana {
     public List<SpecializareMedic> getSpecializari() {
         return specializari;
     }
+
+    @Override
+    public String toString() {
+        return "Medic{" +
+                "nume='" + nume + '\'' +
+                ", prenume='" + prenume + '\'' +
+                "specializari=" + specializari +
+                '}';
+    }
 }

@@ -15,4 +15,13 @@ public class Client extends Persoana {
     public void setCnp(String cnp) {
         this.cnp = cnp;
     }
+
+    @Override
+    public String toString() {
+        return "Client{" +
+                "nume='" + nume + '\'' +
+                ", prenume='" + prenume + '\'' +
+                ",cnp='" + cnp + '\'' +
+                '}';
+    }
 }

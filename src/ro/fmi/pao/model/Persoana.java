@@ -1,8 +1,8 @@
 package ro.fmi.pao.model;
 
 public class Persoana {
-    private String nume;
-    private String prenume;
+    protected String nume;
+    protected String prenume;
 
     public Persoana(String nume, String prenume) {
         this.nume = nume;
@@ -23,5 +23,13 @@ public class Persoana {
 
     public void setPrenume(String prenume) {
         this.prenume = prenume;
+    }
+
+    @Override
+    public String toString() {
+        return "Persoana{" +
+                "nume='" + nume + '\'' +
+                ", prenume='" + prenume + '\'' +
+                '}';
     }
 }
