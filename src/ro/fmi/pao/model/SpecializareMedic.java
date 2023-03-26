@@ -6,6 +6,10 @@ public class SpecializareMedic {
     private String denumire;
     private String codUnicSpecializare;
 
+    public SpecializareMedic(String codUnicSpecializare) {
+        this.codUnicSpecializare = codUnicSpecializare;
+    }
+
     public String getDenumire() {
         return denumire;
     }
@@ -33,5 +37,13 @@ public class SpecializareMedic {
     @Override
     public int hashCode() {
         return Objects.hash(codUnicSpecializare);
+    }
+
+    @Override
+    public String toString() {
+        return "SpecializareMedic{" +
+                "denumire='" + denumire + '\'' +
+                ", codUnicSpecializare='" + codUnicSpecializare + '\'' +
+                '}';
     }
 }
