@@ -9,6 +9,10 @@ public class Persoana {
         this.prenume = prenume;
    }
 
+   public String getNumePrenume() {
+        return nume + " " + prenume;
+   }
+
     public String getNume() {
         return nume;
     }

@@ -1,5 +1,7 @@
 package ro.fmi.pao.model;
 
+import java.util.Objects;
+
 public class Client extends Persoana {
     private String cnp;
 
@@ -14,6 +16,19 @@ public class Client extends Persoana {
 
     public void setCnp(String cnp) {
         this.cnp = cnp;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Client client = (Client) o;
+        return cnp.equals(client.cnp);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(cnp);
     }
 
     @Override
