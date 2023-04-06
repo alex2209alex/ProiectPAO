@@ -2,7 +2,6 @@ package ro.fmi.pao.gestionareprogramari;
 
 import ro.fmi.pao.model.Programare;
 
-import java.time.LocalDateTime;
 import java.util.Comparator;
 
 public class DataOraProgramariiComparator implements Comparator<Programare> {

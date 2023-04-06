@@ -4,23 +4,24 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 
 public class Programare {
-    private CabinetMedical cabinetMedical;
+    private String codProgramare;
     private Client client;
     private Medic medic;
     private LocalDateTime dataOraProgramarii;
 
-    public Programare(Client client, Medic medic, LocalDateTime dataOraProgramarii) {
+    public Programare(String codProgramare, Client client, Medic medic, LocalDateTime dataOraProgramarii) {
+        this.codProgramare = codProgramare;
         this.client = client;
         this.medic = medic;
         this.dataOraProgramarii = dataOraProgramarii;
     }
 
-    public CabinetMedical getCabinetMedical() {
-        return cabinetMedical;
+    public String getCodProgramare() {
+        return codProgramare;
     }
 
-    public void setCabinetMedical(CabinetMedical cabinetMedical) {
-        this.cabinetMedical = cabinetMedical;
+    public void setCodProgramare(String codProgramare) {
+        this.codProgramare = codProgramare;
     }
 
     public Client getClient() {
@@ -52,18 +53,19 @@ public class Programare {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Programare that = (Programare) o;
-        return client.equals(that.client) && medic.equals(that.medic) && dataOraProgramarii.equals(that.dataOraProgramarii);
+        return codProgramare.equals(that.codProgramare);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(client, medic, dataOraProgramarii);
+        return Objects.hash(codProgramare);
     }
 
     @Override
     public String toString() {
         return "Programare{" +
-                "client=" + client +
+                "codProgramare='" + codProgramare + '\'' +
+                ", client=" + client +
                 ", medic=" + medic +
                 ", dataOraProgramarii=" + dataOraProgramarii +
                 '}';

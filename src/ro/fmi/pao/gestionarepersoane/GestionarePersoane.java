@@ -6,9 +6,11 @@ import ro.fmi.pao.model.Persoana;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Scanner;
 
 public interface GestionarePersoane {
-    void adaugaPersoana(Persoana persoana);
+    void adaugaSpecializare(Scanner scanner);
+    void adaugaPersoana(Scanner scanner);
     List<Medic> getTotiMedicii();
     List<Client> getTotiClientii();
     Optional<Medic> getMedicDupaCodParafa(String codParafa);
