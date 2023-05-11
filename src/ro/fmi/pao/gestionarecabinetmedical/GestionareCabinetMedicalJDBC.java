@@ -1,9 +1,9 @@
 package ro.fmi.pao.gestionarecabinetmedical;
 
 import ro.fmi.pao.gestionarepersoane.GestionarePersoane;
-import ro.fmi.pao.gestionarepersoane.GestionarePersoaneInMemorie;
+import ro.fmi.pao.gestionarepersoane.GestionarePersoaneJDBC;
 import ro.fmi.pao.gestionareprogramari.GestionareProgramari;
-import ro.fmi.pao.gestionareprogramari.GestionareProgramariInMemorie;
+import ro.fmi.pao.gestionareprogramari.GestionareProgramariJDBC;
 import ro.fmi.pao.model.Client;
 import ro.fmi.pao.model.Medic;
 import ro.fmi.pao.model.Programare;
@@ -14,14 +14,14 @@ import java.util.Scanner;
 
 import static ro.fmi.pao.utile.Constante.*;
 
-public class GestionareCabinetMedicalInMemorie implements GestionareCabinetMedical {
-    private static GestionareCabinetMedicalInMemorie INSTANCE;
+public class GestionareCabinetMedicalJDBC implements GestionareCabinetMedical {
+    private static GestionareCabinetMedicalJDBC INSTANCE;
 
     @Override
     public void startExecutareaOperatilorAplicatiei() {
         Scanner scanner = new Scanner(System.in);
-        GestionarePersoane gestionarePersoane = GestionarePersoaneInMemorie.getInstance();
-        GestionareProgramari gestionareProgramari = GestionareProgramariInMemorie.getInstance();
+        GestionarePersoane gestionarePersoane = GestionarePersoaneJDBC.getInstance();
+        GestionareProgramari gestionareProgramari = GestionareProgramariJDBC.getInstance();
 
         System.out.println("Programare cabinet medical");
 
@@ -75,7 +75,7 @@ public class GestionareCabinetMedicalInMemorie implements GestionareCabinetMedic
             } else if (operatie == SELECTAREA_PROGRAMARILOR_UNUI_MEDIC_DINTR_O_ZI_ORDONATA_CRESCATOR_DUPA_ORA) {
                 System.out.print("Cod parafa: ");
                 String codParafa = scanner.next();
-                Optional<Medic> medic = GestionarePersoaneInMemorie.getInstance().getMedicDupaCodParafa(codParafa);
+                Optional<Medic> medic = GestionarePersoaneJDBC.getInstance().getMedicDupaCodParafa(codParafa);
                 if (medic.isEmpty()) {
                     System.out.println("Niciun medic nu a fost gasit cu codul parafei " + codParafa);
                     continue;
@@ -106,13 +106,13 @@ public class GestionareCabinetMedicalInMemorie implements GestionareCabinetMedic
         }
     }
 
-    public static GestionareCabinetMedicalInMemorie getInstance() {
+    public static GestionareCabinetMedicalJDBC getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new GestionareCabinetMedicalInMemorie();
+            INSTANCE = new GestionareCabinetMedicalJDBC();
         }
         return INSTANCE;
     }
 
-    private GestionareCabinetMedicalInMemorie() {
+    private GestionareCabinetMedicalJDBC() {
     }
 }
