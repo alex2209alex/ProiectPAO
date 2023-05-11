@@ -7,11 +7,11 @@ public class Persoana {
     public Persoana(String nume, String prenume) {
         this.nume = nume;
         this.prenume = prenume;
-   }
+    }
 
-   public String getNumePrenume() {
+    public String getNumePrenume() {
         return nume + " " + prenume;
-   }
+    }
 
     public String getNume() {
         return nume;

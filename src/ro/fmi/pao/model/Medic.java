@@ -15,7 +15,7 @@ public class Medic extends Persoana {
     }
 
     public void adaugaSpecializare(SpecializareMedic specializareMedic) {
-        if(!areSpecializarea(specializareMedic)) {
+        if (!areSpecializarea(specializareMedic)) {
             specializari.add(specializareMedic);
         }
     }
@@ -41,7 +41,7 @@ public class Medic extends Persoana {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Medic medic = (Medic) o;
-        return codParafa.equals(medic.codParafa);
+        return codParafa.equalsIgnoreCase(medic.codParafa);
     }
 
     @Override

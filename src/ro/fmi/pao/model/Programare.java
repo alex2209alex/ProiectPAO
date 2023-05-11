@@ -53,7 +53,7 @@ public class Programare {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Programare that = (Programare) o;
-        return codProgramare.equals(that.codProgramare);
+        return codProgramare.equalsIgnoreCase(that.codProgramare);
     }
 
     @Override

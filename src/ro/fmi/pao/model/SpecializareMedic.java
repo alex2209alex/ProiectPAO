@@ -33,7 +33,7 @@ public class SpecializareMedic {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         SpecializareMedic that = (SpecializareMedic) o;
-        return codUnicSpecializare.equals(that.codUnicSpecializare);
+        return codUnicSpecializare.equalsIgnoreCase(that.codUnicSpecializare);
     }
 
     @Override

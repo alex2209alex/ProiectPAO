@@ -23,7 +23,7 @@ public class Client extends Persoana {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Client client = (Client) o;
-        return cnp.equals(client.cnp);
+        return cnp.equalsIgnoreCase(client.cnp);
     }
 
     @Override
