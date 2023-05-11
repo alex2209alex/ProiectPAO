@@ -36,7 +36,7 @@ public class Client extends Persoana {
         return "Client{" +
                 "nume='" + nume + '\'' +
                 ", prenume='" + prenume + '\'' +
-                ",cnp='" + cnp + '\'' +
+                ", cnp='" + cnp + '\'' +
                 '}';
     }
 }
