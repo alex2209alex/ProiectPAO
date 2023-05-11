@@ -25,7 +25,7 @@ public class GestionareCabinetMedicalInMemorie implements GestionareCabinetMedic
 
         System.out.println("Programare cabinet medical");
 
-        while(true) {
+        while (true) {
             System.out.print("Selecteaza operatia\n" +
                     ADAUGA_SPECIALIZARE + ".Adauga specializare\n" +
                     ADAUGA_PERSOANA + ".Adauga persoana\n" +
@@ -40,53 +40,43 @@ public class GestionareCabinetMedicalInMemorie implements GestionareCabinetMedic
                     SELECTAREA_TUTUROR_MEDICILOR_DUPA_O_SPECIALIZARE_ORDONATI_DUPA_NUME_SI_PRENUME + ".Selectarea tuturor medicilor dupa o specializare ordonati dupa nume si prenume\n" +
                     STOP + ".Stop\nInput: ");
             int operatie = scanner.nextInt();
-            if(operatie == ADAUGA_SPECIALIZARE) {
-                gestionarePersoane.adaugaSpecializare(scanner);
-            }
-            else if(operatie == ADAUGA_PERSOANA) {
-                gestionarePersoane.adaugaPersoana(scanner);
-            }
-            else if(operatie == ADAUGA_PROGRAMARE) {
-                gestionareProgramari.adaugaProgramare(scanner);
-            }
-            else if(operatie == SELECTARE_TOTI_MEDICII_ORDONATI_DUPA_NUME_SI_PRENUME) {
+            if (operatie == ADAUGA_SPECIALIZARE) {
+                gestionarePersoane.adaugaSpecializare(citesteSpecializareMedic(scanner));
+            } else if (operatie == ADAUGA_PERSOANA) {
+                gestionarePersoane.adaugaPersoana(citestePersoana(scanner, gestionarePersoane));
+            } else if (operatie == ADAUGA_PROGRAMARE) {
+                gestionareProgramari.adaugaProgramare(citesteProgramare(scanner, gestionarePersoane));
+            } else if (operatie == SELECTARE_TOTI_MEDICII_ORDONATI_DUPA_NUME_SI_PRENUME) {
                 System.out.println(gestionarePersoane.getTotiMedicii());
-            }
-            else if(operatie == SELECTARE_TOTI_CLIENTII_ORDONATI_DUPA_NUME_SI_PRENUME) {
+            } else if (operatie == SELECTARE_TOTI_CLIENTII_ORDONATI_DUPA_NUME_SI_PRENUME) {
                 System.out.println(gestionarePersoane.getTotiClientii());
-            }
-            else if(operatie == SELECTARE_UN_MEDIC_DUPA_COD_PARAFA) {
+            } else if (operatie == SELECTARE_UN_MEDIC_DUPA_COD_PARAFA) {
                 System.out.print("Cod parafa: ");
                 String codParafa = scanner.next();
                 Optional<Medic> medic = gestionarePersoane.getMedicDupaCodParafa(codParafa);
-                if(medic.isEmpty()) {
+                if (medic.isEmpty()) {
                     System.out.println("Niciun medic nu a fost gasit cu codul parafei " + codParafa);
-                }
-                else {
+                } else {
                     System.out.println(medic.get());
                 }
-            }
-            else if(operatie == SELECTARE_UN_CLIENT_DUPA_CNP) {
+            } else if (operatie == SELECTARE_UN_CLIENT_DUPA_CNP) {
                 System.out.print("CNP: ");
                 String cnp = scanner.next();
                 Optional<Client> client = gestionarePersoane.getClientDupaCnp(cnp);
-                if(client.isEmpty()) {
+                if (client.isEmpty()) {
                     System.out.println("Niciun client nu a fost gasit cu CNP-ul " + cnp);
-                }
-                else {
+                } else {
                     System.out.println(client.get());
                 }
-            }
-            else if(operatie == SELECTAREA_TUTUROR_MEDICILOR_DUPA_O_SPECIALIZARE_ORDONATI_DUPA_NUME_SI_PRENUME) {
+            } else if (operatie == SELECTAREA_TUTUROR_MEDICILOR_DUPA_O_SPECIALIZARE_ORDONATI_DUPA_NUME_SI_PRENUME) {
                 System.out.print("Cod specializare: ");
                 String specializare = scanner.next();
                 System.out.println(gestionarePersoane.getMediciDupaSpecializare(specializare));
-            }
-            else if(operatie == SELECTAREA_PROGRAMARILOR_UNUI_MEDIC_DINTR_O_ZI_ORDONATA_CRESCATOR_DUPA_ORA) {
+            } else if (operatie == SELECTAREA_PROGRAMARILOR_UNUI_MEDIC_DINTR_O_ZI_ORDONATA_CRESCATOR_DUPA_ORA) {
                 System.out.print("Cod parafa: ");
                 String codParafa = scanner.next();
                 Optional<Medic> medic = GestionarePersoaneInMemorie.getInstance().getMedicDupaCodParafa(codParafa);
-                if(medic.isEmpty()) {
+                if (medic.isEmpty()) {
                     System.out.println("Niciun medic nu a fost gasit cu codul parafei " + codParafa);
                     return;
                 }
@@ -96,32 +86,28 @@ public class GestionareCabinetMedicalInMemorie implements GestionareCabinetMedic
                 int luna = scanner.nextInt();
                 System.out.print("Zi: ");
                 int zi = scanner.nextInt();
-                LocalDate localDate =  LocalDate.of(an, luna, zi);
+                LocalDate localDate = LocalDate.of(an, luna, zi);
                 System.out.println(gestionareProgramari.getProgramariPentruMedicDinZiua(medic.get(), localDate));
-            }
-            else if(operatie == SELECTAREA_TUTUROR_PROGRAMARILOR_UNUI_CLIENT) {
+            } else if (operatie == SELECTAREA_TUTUROR_PROGRAMARILOR_UNUI_CLIENT) {
                 System.out.print("CNP: ");
                 String cnp = scanner.next();
                 Client client = new Client("", "", cnp);
                 System.out.println(gestionareProgramari.getToateProgramarileClient(client));
-            }
-            else if(operatie == ANULARE_PROGRAMARE) {
+            } else if (operatie == ANULARE_PROGRAMARE) {
                 System.out.print("Cod programare: ");
                 String codProgramare = scanner.next();
                 Programare programare = new Programare(codProgramare, null, null, null);
                 gestionareProgramari.anuleazaProgramare(programare);
-            }
-            else if(operatie == STOP) {
+            } else if (operatie == STOP) {
                 break;
-            }
-            else {
+            } else {
                 System.out.println(INPUT_INVALID);
             }
         }
     }
 
     public static GestionareCabinetMedicalInMemorie getInstance() {
-        if(INSTANCE == null) {
+        if (INSTANCE == null) {
             INSTANCE = new GestionareCabinetMedicalInMemorie();
         }
         return INSTANCE;

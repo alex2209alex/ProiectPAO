@@ -6,11 +6,13 @@ import ro.fmi.pao.model.Programare;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Scanner;
 
 public interface GestionareProgramari {
-    void adaugaProgramare(Scanner scanner);
+    void adaugaProgramare(Programare programare);
+
     void anuleazaProgramare(Programare programare);
+
     List<Programare> getProgramariPentruMedicDinZiua(Medic medic, LocalDate ziua);
+
     List<Programare> getToateProgramarileClient(Client client);
 }
