@@ -3,9 +3,14 @@ package ro.fmi.pao.gestionarecabinetmedical;
 import ro.fmi.pao.gestionarepersoane.GestionarePersoane;
 import ro.fmi.pao.model.*;
 
+import java.io.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static ro.fmi.pao.utile.Constante.INPUT_INVALID;
 
@@ -96,5 +101,16 @@ public interface GestionareCabinetMedical {
         int minut = scanner.nextInt();
         LocalDateTime ldt = LocalDateTime.of(an, luna, zi, ora, minut);
         return new Programare(codProgramare, client.get(), medic.get(), ldt);
+    }
+
+    default void scrieInCSV(String actiune) {
+        try {
+            FileWriter fileWriter = new FileWriter("audit.csv", true);
+            fileWriter.append(actiune);
+            fileWriter.append(System.lineSeparator());
+            fileWriter.close();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }

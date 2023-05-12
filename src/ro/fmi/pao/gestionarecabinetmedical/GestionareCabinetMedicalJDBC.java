@@ -8,7 +8,9 @@ import ro.fmi.pao.model.Client;
 import ro.fmi.pao.model.Medic;
 import ro.fmi.pao.model.Programare;
 
+import java.sql.Timestamp;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Optional;
 import java.util.Scanner;
 
@@ -42,14 +44,24 @@ public class GestionareCabinetMedicalJDBC implements GestionareCabinetMedical {
             int operatie = scanner.nextInt();
             if (operatie == ADAUGA_SPECIALIZARE) {
                 gestionarePersoane.adaugaSpecializare(citesteSpecializareMedic(scanner));
+                Date data = new Date();
+                scrieInCSV("ADAUGA_SPECIALIZARE, " + (new Timestamp(data.getTime())));
             } else if (operatie == ADAUGA_PERSOANA) {
                 gestionarePersoane.adaugaPersoana(citestePersoana(scanner, gestionarePersoane));
+                Date data = new Date();
+                scrieInCSV("ADAUGA_PERSOANA, " + (new Timestamp(data.getTime())));
             } else if (operatie == ADAUGA_PROGRAMARE) {
                 gestionareProgramari.adaugaProgramare(citesteProgramare(scanner, gestionarePersoane));
+                Date data = new Date();
+                scrieInCSV("ADAUGA_PROGRAMARE, " + (new Timestamp(data.getTime())));
             } else if (operatie == SELECTARE_TOTI_MEDICII_ORDONATI_DUPA_NUME_SI_PRENUME) {
                 System.out.println(gestionarePersoane.getTotiMedicii());
+                Date data = new Date();
+                scrieInCSV("SELECTARE_TOTI_MEDICII_ORDONATI_DUPA_NUME_SI_PRENUME, " + (new Timestamp(data.getTime())));
             } else if (operatie == SELECTARE_TOTI_CLIENTII_ORDONATI_DUPA_NUME_SI_PRENUME) {
                 System.out.println(gestionarePersoane.getTotiClientii());
+                Date data = new Date();
+                scrieInCSV("SELECTARE_TOTI_CLIENTII_ORDONATI_DUPA_NUME_SI_PRENUME, " + (new Timestamp(data.getTime())));
             } else if (operatie == SELECTARE_UN_MEDIC_DUPA_COD_PARAFA) {
                 System.out.print("Cod parafa: ");
                 String codParafa = scanner.next();
@@ -59,6 +71,8 @@ public class GestionareCabinetMedicalJDBC implements GestionareCabinetMedical {
                 } else {
                     System.out.println(medic.get());
                 }
+                Date data = new Date();
+                scrieInCSV("SELECTARE_UN_MEDIC_DUPA_COD_PARAFA, " + (new Timestamp(data.getTime())));
             } else if (operatie == SELECTARE_UN_CLIENT_DUPA_CNP) {
                 System.out.print("CNP: ");
                 String cnp = scanner.next();
@@ -68,10 +82,14 @@ public class GestionareCabinetMedicalJDBC implements GestionareCabinetMedical {
                 } else {
                     System.out.println(client.get());
                 }
+                Date data = new Date();
+                scrieInCSV("SELECTARE_UN_CLIENT_DUPA_CNP, " + (new Timestamp(data.getTime())));
             } else if (operatie == SELECTAREA_TUTUROR_MEDICILOR_DUPA_O_SPECIALIZARE_ORDONATI_DUPA_NUME_SI_PRENUME) {
                 System.out.print("Cod specializare: ");
                 String specializare = scanner.next();
                 System.out.println(gestionarePersoane.getMediciDupaSpecializare(specializare));
+                Date data = new Date();
+                scrieInCSV("SELECTAREA_TUTUROR_MEDICILOR_DUPA_O_SPECIALIZARE_ORDONATI_DUPA_NUME_SI_PRENUME, " + (new Timestamp(data.getTime())));
             } else if (operatie == SELECTAREA_PROGRAMARILOR_UNUI_MEDIC_DINTR_O_ZI_ORDONATA_CRESCATOR_DUPA_ORA) {
                 System.out.print("Cod parafa: ");
                 String codParafa = scanner.next();
@@ -88,16 +106,22 @@ public class GestionareCabinetMedicalJDBC implements GestionareCabinetMedical {
                 int zi = scanner.nextInt();
                 LocalDate localDate = LocalDate.of(an, luna, zi);
                 System.out.println(gestionareProgramari.getProgramariPentruMedicDinZiua(medic.get(), localDate));
+                Date data = new Date();
+                scrieInCSV("SELECTAREA_PROGRAMARILOR_UNUI_MEDIC_DINTR_O_ZI_ORDONATA_CRESCATOR_DUPA_ORA, " + (new Timestamp(data.getTime())));
             } else if (operatie == SELECTAREA_TUTUROR_PROGRAMARILOR_UNUI_CLIENT) {
                 System.out.print("CNP: ");
                 String cnp = scanner.next();
                 Client client = new Client("", "", cnp);
                 System.out.println(gestionareProgramari.getToateProgramarileClient(client));
+                Date data = new Date();
+                scrieInCSV("SELECTAREA_TUTUROR_PROGRAMARILOR_UNUI_CLIENT, " + (new Timestamp(data.getTime())));
             } else if (operatie == ANULARE_PROGRAMARE) {
                 System.out.print("Cod programare: ");
                 String codProgramare = scanner.next();
                 Programare programare = new Programare(codProgramare, null, null, null);
                 gestionareProgramari.anuleazaProgramare(programare);
+                Date data = new Date();
+                scrieInCSV("ANULARE_PROGRAMARE, " + (new Timestamp(data.getTime())));
             } else if (operatie == STOP) {
                 break;
             } else {
