@@ -42,7 +42,8 @@ public class CitireSpecializareMedic implements ActionListener {
         if (INSTANCE == null) {
             INSTANCE = new CitireSpecializareMedic(gestionarePersoane, gestionareCabinetMedical);
         }
-        INSTANCE.jFrame.setVisible(true);
+        INSTANCE.codUnicSpecializare.setText("");
+        INSTANCE.denumire.setText("");
         return INSTANCE;
     }
 
