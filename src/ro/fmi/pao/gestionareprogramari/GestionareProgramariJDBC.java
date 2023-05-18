@@ -1,5 +1,7 @@
 package ro.fmi.pao.gestionareprogramari;
 
+import ro.fmi.pao.framesraspuns.FrameRaspuns;
+import ro.fmi.pao.gestionarecabinetmedical.GestionareCabinetMedicalJDBC;
 import ro.fmi.pao.gestionarepersoane.GestionarePersoaneJDBC;
 import ro.fmi.pao.model.Client;
 import ro.fmi.pao.model.Medic;
@@ -17,7 +19,7 @@ public class GestionareProgramariJDBC implements GestionareProgramari {
     @Override
     public void adaugaProgramare(Programare programare) {
         if (programare == null) {
-            System.out.println("Programarea nu a fost adaugata");
+            new FrameRaspuns("Input invalid", "Programarea nu a fost adaugata", GestionareCabinetMedicalJDBC.getInstance());
             return;
         }
         if (!existaProgramare(programare)) {
@@ -45,7 +47,7 @@ public class GestionareProgramariJDBC implements GestionareProgramari {
                     }
                 }
                 if (idMedic == -1 || idClient == -1) {
-                    System.out.println("Programarea nu a fost adaugata");
+                    new FrameRaspuns("Input invalid", "Programarea nu a fost adaugata", GestionareCabinetMedicalJDBC.getInstance());
                     return;
                 }
                 try (PreparedStatement pstmt = con.prepareStatement(insertSql)) {
@@ -58,16 +60,18 @@ public class GestionareProgramariJDBC implements GestionareProgramari {
             } catch (SQLException e) {
                 throw new RuntimeException(e);
             }
-            System.out.println("Programarea a fost adaugata");
+            new FrameRaspuns("Programare adaugata", "Programarea a fost adaugata", GestionareCabinetMedicalJDBC.getInstance());
+
         } else {
-            System.out.println("Codul programarii nu e unic");
+            new FrameRaspuns("Input invalid", "Codul programarii nu este unic", GestionareCabinetMedicalJDBC.getInstance());
         }
     }
 
     @Override
     public void anuleazaProgramare(Programare programare) {
         if (!existaProgramare(programare)) {
-            System.out.println("Programarea nu exista");
+            String text = "Nu exista programare cu codul " + programare.getCodProgramare();
+            new FrameRaspuns("Fara rezultat", text, GestionareCabinetMedicalJDBC.getInstance());
             return;
         }
         String selectSql = "DELETE FROM programare WHERE LOWER(cod_programare) = LOWER(?)";
@@ -76,7 +80,7 @@ public class GestionareProgramariJDBC implements GestionareProgramari {
             try (PreparedStatement pstmt = con.prepareStatement(selectSql)) {
                 pstmt.setString(1, programare.getCodProgramare());
                 pstmt.executeUpdate();
-                System.out.println("Programarea a fost stearsa");
+                new FrameRaspuns("Programare stearsa", "Programarea a fost anulata", GestionareCabinetMedicalJDBC.getInstance());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

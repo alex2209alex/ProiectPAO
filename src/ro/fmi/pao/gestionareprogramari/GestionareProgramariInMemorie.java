@@ -1,5 +1,7 @@
 package ro.fmi.pao.gestionareprogramari;
 
+import ro.fmi.pao.framesraspuns.FrameRaspuns;
+import ro.fmi.pao.gestionarecabinetmedical.GestionareCabinetMedicalInMemorie;
 import ro.fmi.pao.model.Client;
 import ro.fmi.pao.model.Medic;
 import ro.fmi.pao.model.Programare;
@@ -16,14 +18,15 @@ public class GestionareProgramariInMemorie implements GestionareProgramari {
     @Override
     public void adaugaProgramare(Programare programare) {
         if (programare == null) {
-            System.out.println("Programarea nu a fost adaugata");
+            new FrameRaspuns("Input invalid", "Programarea nu a fost adaugata", GestionareCabinetMedicalInMemorie.getInstance());
             return;
         }
         if (!existaProgramare(programare)) {
             programari.add(programare);
-            System.out.println("Programarea a fost adaugata");
+            new FrameRaspuns("Programare adaugata", "Programarea a fost adaugata", GestionareCabinetMedicalInMemorie.getInstance());
+
         } else {
-            System.out.println("Codul programarii nu e unic");
+            new FrameRaspuns("Input invalid", "Codul programarii nu este unic", GestionareCabinetMedicalInMemorie.getInstance());
         }
     }
 
@@ -31,9 +34,9 @@ public class GestionareProgramariInMemorie implements GestionareProgramari {
     public void anuleazaProgramare(Programare programare) {
         if (programari.contains(programare)) {
             programari.remove(programare);
-            System.out.println("Programarea a fost stearsa");
+            new FrameRaspuns("Programare stearsa", "Programarea a fost anulata", GestionareCabinetMedicalInMemorie.getInstance());
         } else {
-            System.out.println("Programarea nu exista");
+            new FrameRaspuns("Niciun rezultat", "Programarea nu exista", GestionareCabinetMedicalInMemorie.getInstance());
         }
     }
 

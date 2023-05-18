@@ -1,5 +1,7 @@
 package ro.fmi.pao.gestionarepersoane;
 
+import ro.fmi.pao.framesraspuns.FrameRaspuns;
+import ro.fmi.pao.gestionarecabinetmedical.GestionareCabinetMedicalJDBC;
 import ro.fmi.pao.model.Client;
 import ro.fmi.pao.model.Medic;
 import ro.fmi.pao.model.Persoana;
@@ -17,7 +19,7 @@ public class GestionarePersoaneJDBC implements GestionarePersoane {
     public void adaugaSpecializare(SpecializareMedic specializareMedic) {
         try {
             if (existaCodSpecializare(specializareMedic.getCodUnicSpecializare())) {
-                System.out.println("Codul nu este unic");
+                new FrameRaspuns("Input invalid", "Codul nu este unic", GestionareCabinetMedicalJDBC.getInstance());
             } else {
                 String insertSql = "INSERT INTO specializare(cod_specializare, denumire) VALUES(?, ?)";
                 try (Connection con = DriverManager
@@ -28,7 +30,7 @@ public class GestionarePersoaneJDBC implements GestionarePersoane {
                         pstmt.executeUpdate();
                     }
                 }
-                System.out.println("Specializare inserata");
+                new FrameRaspuns("Specializare inserata", "Specializare inserata", GestionareCabinetMedicalJDBC.getInstance());
             }
         } catch (SQLException e) {
             throw new RuntimeException(e.getMessage(), e);
@@ -38,20 +40,19 @@ public class GestionarePersoaneJDBC implements GestionarePersoane {
     @Override
     public void adaugaPersoana(Persoana persoana) {
         if (persoana == null) {
-            System.out.println("Persoana nu a fost inserata");
+            new FrameRaspuns("Input invalid", "Persoana nu a fost introdusa", GestionareCabinetMedicalJDBC.getInstance());
             return;
         }
-        if (persoana instanceof Client) {
-            Client client = (Client) persoana;
+        if (persoana instanceof Client client) {
             try {
                 if (existaCnp(client.getCnp())) {
-                    System.out.println("CNP-ul nu este unic");
+                    new FrameRaspuns("Input invalid", "CNP-ul nu este unic", GestionareCabinetMedicalJDBC.getInstance());
                 } else {
                     String insertPersoanaSql = "INSERT INTO persoana(nume, prenume) VALUES(?, ?)";
                     String insertClientSql = "INSERT INTO client(id_persoana, cnp) VALUES(?, ?)";
                     try (Connection con = DriverManager
                             .getConnection("jdbc:postgresql://localhost:5433/pao", "postgres", "1234")) {
-                        int id = 0;
+                        int id;
                         try (PreparedStatement pstmt = con.prepareStatement(insertPersoanaSql, Statement.RETURN_GENERATED_KEYS)) {
                             pstmt.setString(1, client.getNume());
                             pstmt.setString(2, client.getPrenume());
@@ -66,7 +67,7 @@ public class GestionarePersoaneJDBC implements GestionarePersoane {
                             pstmt.executeUpdate();
                         }
                     }
-                    System.out.println("Client inserat");
+                    new FrameRaspuns("Client inserat", "Client inserat", GestionareCabinetMedicalJDBC.getInstance());
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e.getMessage(), e);
@@ -75,14 +76,14 @@ public class GestionarePersoaneJDBC implements GestionarePersoane {
             Medic medic = (Medic) persoana;
             try {
                 if (existaCodParafa(medic.getCodParafa())) {
-                    System.out.println("Codul parafei nu este unic");
+                    new FrameRaspuns("Input invalid", "Codul parafei nu este unic", GestionareCabinetMedicalJDBC.getInstance());
                 } else {
                     String insertPersoanaSql = "INSERT INTO persoana(nume, prenume) VALUES(?, ?)";
                     String insertMedicSql = "INSERT INTO medic(id_persoana, cod_parafa) VALUES(?, ?)";
                     String insertMedicSpecializareSql = "INSERT INTO medic_specializare(id_specializare, id_medic) VALUES(?, ?)";
                     try (Connection con = DriverManager
                             .getConnection("jdbc:postgresql://localhost:5433/pao", "postgres", "1234")) {
-                        int id = 0;
+                        int id;
                         try (PreparedStatement pstmt = con.prepareStatement(insertPersoanaSql, Statement.RETURN_GENERATED_KEYS)) {
                             pstmt.setString(1, medic.getNume());
                             pstmt.setString(2, medic.getPrenume());
@@ -100,7 +101,7 @@ public class GestionarePersoaneJDBC implements GestionarePersoane {
                             try (PreparedStatement pstmt = con.prepareStatement(insertMedicSpecializareSql)) {
                                 int idSpecializare = getIdSpecializare(specializare);
                                 if (id == -1) {
-                                    System.out.println("Medicul nu a fost inserat");
+                                    new FrameRaspuns("Input invalid", "O specializare nu a fost adaugata medicului", GestionareCabinetMedicalJDBC.getInstance());
                                     return;
                                 }
                                 pstmt.setInt(1, idSpecializare);
@@ -109,7 +110,7 @@ public class GestionarePersoaneJDBC implements GestionarePersoane {
                             }
                         }
                     }
-                    System.out.println("Medic inserat");
+                    new FrameRaspuns("Medic inserat", "Medic inserat", GestionareCabinetMedicalJDBC.getInstance());
                 }
             } catch (SQLException e) {
                 throw new RuntimeException(e.getMessage(), e);

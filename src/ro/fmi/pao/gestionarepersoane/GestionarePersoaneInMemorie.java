@@ -1,5 +1,7 @@
 package ro.fmi.pao.gestionarepersoane;
 
+import ro.fmi.pao.framesraspuns.FrameRaspuns;
+import ro.fmi.pao.gestionarecabinetmedical.GestionareCabinetMedicalInMemorie;
 import ro.fmi.pao.model.Client;
 import ro.fmi.pao.model.Medic;
 import ro.fmi.pao.model.Persoana;
@@ -16,11 +18,11 @@ public class GestionarePersoaneInMemorie implements GestionarePersoane {
 
     @Override
     public void adaugaSpecializare(SpecializareMedic specializareMedic) {
-        if (!specializari.contains(specializareMedic)) {
+        if (specializareMedic != null && !specializari.contains(specializareMedic)) {
             specializari.add(specializareMedic);
-            System.out.println("Specializare inserata");
+            new FrameRaspuns("Specializare inserata", "Specializarea a fost inserata", GestionareCabinetMedicalInMemorie.getInstance());
         } else {
-            System.out.println("Codul nu este unic");
+            new FrameRaspuns("Input invalid", "Specializarea nu a fost inserata", GestionareCabinetMedicalInMemorie.getInstance());
         }
     }
 
@@ -28,9 +30,9 @@ public class GestionarePersoaneInMemorie implements GestionarePersoane {
     public void adaugaPersoana(Persoana persoana) {
         if (persoana != null && !persoane.contains(persoana)) {
             persoane.add(persoana);
-            System.out.println("Persoana inserata");
+            new FrameRaspuns("Persoana inserata", "Persoana a fost inserata", GestionareCabinetMedicalInMemorie.getInstance());
         } else {
-            System.out.println("Persoana nu a fost inserata");
+            new FrameRaspuns("Input invalid", "Persoana nu a fost introdusa", GestionareCabinetMedicalInMemorie.getInstance());
         }
     }
 

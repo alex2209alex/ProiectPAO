@@ -56,7 +56,7 @@ public class CitirePersoana implements ActionListener {
         } else if (actionEvent.getSource() == adaugaClient) {
             gestionarePersoane.adaugaPersoana(new Client(nume.getText(), prenume.getText(), cnpClient.getText()));
             Date data = new Date();
-            GestionareCabinetMedical.scrieInCSV("ADAUGA_SPECIALIZARE, " + (new Timestamp(data.getTime())));
+            GestionareCabinetMedical.scrieInCSV("ADAUGA_PERSOANA, " + (new Timestamp(data.getTime())));
         } else if (actionEvent.getSource() == medic) {
             jFrame.remove(client);
             jFrame.remove(medic);
@@ -91,6 +91,8 @@ public class CitirePersoana implements ActionListener {
             }
         } else if (actionEvent.getSource() == adaugaMedic) {
             gestionarePersoane.adaugaPersoana(entitateMedic);
+            Date data = new Date();
+            GestionareCabinetMedical.scrieInCSV("ADAUGA_PERSOANA, " + (new Timestamp(data.getTime())));
         }
     }
 
