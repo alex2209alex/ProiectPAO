@@ -5,6 +5,7 @@ import ro.fmi.pao.gestionarecabinetmedical.GestionareCabinetMedical;
 import ro.fmi.pao.gestionarepersoane.GestionarePersoane;
 import ro.fmi.pao.gestionareprogramari.GestionareProgramari;
 import ro.fmi.pao.model.Medic;
+import ro.fmi.pao.model.Programare;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,6 +17,7 @@ import java.sql.Timestamp;
 import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 
 public class CitireCodParafaDataAfisareProgramari implements ActionListener {
@@ -45,7 +47,12 @@ public class CitireCodParafaDataAfisareProgramari implements ActionListener {
             } else {
                 try {
                     LocalDate localDate = LocalDate.of(Integer.parseInt(anData.getText()), Integer.parseInt(lunaData.getText()), Integer.parseInt(ziData.getText()));
-                    new FrameRaspuns("Programari medic in ziua", gestionareProgramari.getProgramariPentruMedicDinZiua(medic.get(), localDate).toString(), gestionareCabinetMedical);
+                    List<Programare> programari = gestionareProgramari.getProgramariPentruMedicDinZiua(medic.get(), localDate);
+                    if (programari.size() == 0) {
+                        new FrameRaspuns("Nimic gasit", "Nicio programare la medicul introdus in ziua cautata", gestionareCabinetMedical);
+                    } else {
+                        new FrameRaspuns("Programari medic in ziua", programari.toString(), gestionareCabinetMedical);
+                    }
                     Date data = new Date();
                     GestionareCabinetMedical.scrieInCSV("SELECTAREA_PROGRAMARILOR_UNUI_MEDIC_DINTR_O_ZI_ORDONATA_CRESCATOR_DUPA_ORA, " + (new Timestamp(data.getTime())));
                 } catch (NumberFormatException e) {

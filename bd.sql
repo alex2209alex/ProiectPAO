@@ -1,3 +1,8 @@
+DROP TABLE public.medic_specializare;
+DROP TABLE public.specializare;
+DROP TABLE public.programare;
+DROP TABLE public.client;
+DROP TABLE public.medic;
 DROP TABLE public.persoana;
 
 CREATE TABLE IF NOT EXISTS public.persoana
@@ -6,8 +11,6 @@ CREATE TABLE IF NOT EXISTS public.persoana
     nume VARCHAR(100) NOT NULL,
     prenume VARCHAR(100) NOT NULL
 );
-
-DROP TABLE public.medic;
 
 CREATE TABLE IF NOT EXISTS public.medic
 (
@@ -18,8 +21,6 @@ CREATE TABLE IF NOT EXISTS public.medic
 ALTER TABLE public.medic
     ADD CONSTRAINT fk_medic FOREIGN KEY (id_persoana) REFERENCES persoana (id_persoana);
 
-DROP TABLE public.client;
-
 CREATE TABLE IF NOT EXISTS public.client
 (
     id_persoana integer NOT NULL,
@@ -29,8 +30,6 @@ CREATE TABLE IF NOT EXISTS public.client
 
 ALTER TABLE public.client
     ADD CONSTRAINT fk_client FOREIGN KEY (id_persoana) REFERENCES persoana (id_persoana);
-
-DROP TABLE public.programare;
 
 CREATE TABLE IF NOT EXISTS public.programare
 (
@@ -48,8 +47,6 @@ ALTER TABLE public.programare
 ALTER TABLE public.programare
     ADD CONSTRAINT fk_medic_programare FOREIGN KEY (id_medic) REFERENCES persoana (id_persoana);
 
-DROP TABLE public.specializare;
-
 CREATE TABLE IF NOT EXISTS public.specializare
 (
     id_specializare serial NOT NULL,
@@ -57,8 +54,6 @@ CREATE TABLE IF NOT EXISTS public.specializare
     denumire VARCHAR(100) NOT NULL,
     CONSTRAINT specializare_pkey PRIMARY KEY (id_specializare)
 );
-
-DROP TABLE public.medic_specializare;
 
 CREATE TABLE IF NOT EXISTS public.medic_specializare
 (
