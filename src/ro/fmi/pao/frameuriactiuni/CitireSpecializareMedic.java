@@ -1,4 +1,4 @@
-package ro.fmi.pao.framescitire;
+package ro.fmi.pao.frameuriactiuni;
 
 import ro.fmi.pao.gestionarecabinetmedical.GestionareCabinetMedical;
 import ro.fmi.pao.gestionarepersoane.GestionarePersoane;
