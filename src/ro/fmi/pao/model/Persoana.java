@@ -1,6 +1,6 @@
 package ro.fmi.pao.model;
 
-public class Persoana {
+public class Persoana implements Comparable {
     protected String nume;
     protected String prenume;
 
@@ -29,11 +29,21 @@ public class Persoana {
         this.prenume = prenume;
     }
 
+
+
     @Override
     public String toString() {
         return "Persoana{" +
                 "nume='" + nume + '\'' +
                 ", prenume='" + prenume + '\'' +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if (o instanceof Persoana) {
+            return this.getNumePrenume().compareTo(((Persoana) o).getNumePrenume());
+        }
+        return -1;
     }
 }

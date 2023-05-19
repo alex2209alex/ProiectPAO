@@ -7,12 +7,10 @@ import ro.fmi.pao.model.Medic;
 import ro.fmi.pao.model.Persoana;
 import ro.fmi.pao.model.SpecializareMedic;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class GestionarePersoaneInMemorie implements GestionarePersoane {
-    List<Persoana> persoane;
+    Set<Persoana> persoane;
     List<SpecializareMedic> specializari;
     private static GestionarePersoaneInMemorie INSTANCE;
 
@@ -117,7 +115,7 @@ public class GestionarePersoaneInMemorie implements GestionarePersoane {
     }
 
     private GestionarePersoaneInMemorie() {
-        persoane = new ArrayList<>();
+        persoane = new TreeSet<>();
         specializari = new ArrayList<>();
     }
 }
